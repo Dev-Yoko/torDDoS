@@ -1,3 +1,4 @@
+import argparse
 import datetime
 import sys
 import random
@@ -46,10 +47,14 @@ def stop_tor_if_running(tor):
 
 def main():
     try:
+        parser = argparse.ArgumentParser(description='High Voltage Max Attack')
+        parser.add_argument('-t', '--target', type=str, help='server to kick-out', required=True)
+        parser.add_argument('-n', '--attempts', type=int, help='number of attempts of attack', default=5)
         args = parser.parse_args()
+
         target = args.target
-        max_attempts = args.max_attempts
-        max_attempts += 100000  # Adding 100,000 to the existing max_attempts
+        max_attempts = args.attempts
+
         tor = initialize_tor()
 
         start_time = datetime.datetime.now()
